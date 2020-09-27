@@ -1,0 +1,82 @@
+```{r}
+library(htmltab)
+library(stringr) 
+library(readr)
+```
+#Aqui exportamos las tablas necesarias para el procedimiento
+```{r}
+lkCSV="https://github.com/tpolicio/meepo01/raw/master/efectividad2016.csv"
+efectividad=import(lkCSV)
+```
+
+```{r}
+lkCSV="https://github.com/tpolicio/meepo01/raw/master/desempleo2016.csv"
+desempleo=import(lkCSV)
+```
+#Nos quedamos con las columnas que usaremos
+```{r}
+desempleo=desempleo[,-c(1:3)]
+```
+
+```{r}
+efectividad=efectividad[,c(2,5)]
+```
+
+```{r}
+str(desempleo)
+str(efectividad)
+```
+#Cambiamos el nombre para un futuro merge un mejor manejo
+```{r}
+names(desempleo)= c("pais","Des2016")
+names(efectividad)= c("pais", "Efec2016")
+```
+
+```{r}
+head(desempleo)
+head(efectividad)
+```
+# se elimina las filas que no son necesarias ya que estan en blanco
+```{r}
+desempleo=desempleo[-c(218:222),]
+efectividad=efectividad[-c(215:219),]
+```
+
+#Se convierte en numerico las columnas 
+```{r}
+desempleo[,c(2)]=as.numeric(desempleo[,c(2)])
+efectividad[,c(2)]=as.numeric(efectividad[,c(2)])
+```
+#Se eliman las N.A
+```{r}
+desempleo=na.omit(desempleo)
+efectividad=na.omit(efectividad)
+
+# :D
+```
+
+#Desde aqui, es un paso adicional; ya que puedo trabajar junto o separado
+
+```{r}
+variable1= merge(desempleo, efectividad, by.x = "pais", by.y = "pais")
+```
+
+```{r}
+str(variable1)
+```
+
+```{r}
+variable1[,c(2)]=as.numeric(variable1[,c(2)])
+variable1[,c(3)]=as.numeric(variable1[,c(3)])
+```
+
+```{r}
+variable1=na.omit(variable1)
+```
+
+```{r}
+str(variable1)
+```
+```{r}
+desempleo=desempleo[-c(1:5),]
+```
