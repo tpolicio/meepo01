@@ -1,0 +1,25 @@
+```{r}
+linkIPC = "https://github.com/isaurayamile/DATAS-/raw/master/CPI2019.xlsx"
+ICP = import(linkIPC)
+names(ICP)
+str(ICP)
+ICP [,c(2:15)] = NULL 
+ICP [,c(3:16)] = NULL 
+ICP= ICP [-(1:2),]
+ICP$num=c(1:180)
+ICP$num=as.numeric(ICP$num)
+row.names(ICP)=ICP$num
+ICP$num=NULL
+names(ICP) = c("Pais","CPI2016")
+ICP[duplicated(ICP$Pais),]
+ICP[!complete.cases(ICP),]
+ICP= ICP[-27,]
+ICP= ICP[-65,]
+ICP= ICP[-113,]
+ICP= ICP[-174,]
+ICP$num=c(1:176)
+ICP$num=as.numeric(ICP$num)
+row.names(ICP)=ICP$num
+ICP$num=NULL
+```
+
